@@ -1,0 +1,23 @@
+# dev-contracts scaffold (role=consumer): consumer pin 突合ゲート。
+# 毎 PR で .contracts-lock.yaml の宣言と control repo が公開した contracts-versions.json を突合。
+# exit 0=合致 / 1=違反 / 2=診断エラー（突合セマンティクスは contract-governance skill §4）。
+# contracts-versions.json は control repo が lint/破壊検出後に公開する {契約名: 版} マップ。
+# MVP: consumer repo に checked-in で持つ（配送自動化は #1321 の reusable workflow 領域）。
+name: contract-pin
+on:
+  pull_request:
+jobs:
+  pin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install PyYAML
+        run: pip install --quiet pyyaml
+      - name: Verify contract pins
+        run: |
+          python3 .github/scripts/contract_pin.py \
+            --lock .contracts-lock.yaml \
+            --versions contracts-versions.json

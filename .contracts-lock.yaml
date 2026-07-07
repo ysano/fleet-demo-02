@@ -1,0 +1,8 @@
+# 演習用 consumer lock（充足ケース — contract_pin 期待 exit 0）
+contracts:
+  - name: order-api
+    version: "2.0.0"
+    source: control
+  - name: inventory-api
+    range: ">=1.0.0 <3.0.0"
+    source: control

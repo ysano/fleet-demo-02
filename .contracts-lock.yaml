@@ -1,8 +1,9 @@
-# 演習用 consumer lock（充足ケース — contract_pin 期待 exit 0）
+# 演習用 consumer lock（違反ケース — contract_pin 期待 exit 1）
+# order-api 1.0.0 は既に 2.0.0 が公開されており完全一致 pin が満たされない
 contracts:
   - name: order-api
-    version: "2.0.0"
+    version: "1.0.0"
     source: control
   - name: inventory-api
-    range: ">=1.0.0 <3.0.0"
+    range: ">=3.0.0"
     source: control
